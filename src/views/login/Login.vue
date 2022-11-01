@@ -66,10 +66,10 @@ export default {
       },
       rules: {
         name: [
-          { required: true, message: "用户名不能为空！", trigger: "blur" },
+          { required: true, message: "Please input name.", trigger: "blur" },
         ],
         password: [
-          { required: true, message: "密码不能为空！", trigger: "blur" },
+          { required: true, message: "Please input password.", trigger: "blur" },
         ],
       },
       loading: false, // 是否显示加载动画
@@ -85,7 +85,7 @@ export default {
         if (valid) {
           let _this = this;
           // 使用 axios 将登录信息发送到后端
-          let param =  {
+          let param = {
             name: _this.ruleForm.name,
             password:_this.ruleForm.password
           };
@@ -104,8 +104,10 @@ export default {
           }).then((res) => { // 当收到后端的响应时执行该括号内的代码，res为响应信息，也就是后端返回的信息
             console.log(res.data.code)
             if (res.data.code === 200) {  // 当响应的编码为 0 时，说明登录成功
-              // 将用户信息存储到sessionStorage中
-              sessionStorage.setItem("userInfo", JSON.stringify(res.data.data));
+              // 将用户信息存储到localStorage中
+              // sessionStorage.setItem("userInfo", JSON.stringify(res.data.data));
+              localStorage.setItem("userInfo",JSON.stringify(res.data.data.token))
+              console.log(res)
               // 跳转页面到首页
               this.$router.push('/home');
               // 显示后端响应的成功信息
