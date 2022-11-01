@@ -1,41 +1,58 @@
-import Qs from "qs";
 <template>
-  <div>
-    <el-card class="box-card">
-      <h2>登录</h2>
-      <el-form
-          :model="ruleForm"
-          status-icon
-          :rules="rules"
-          ref="ruleForm"
-          label-position="left"
-          label-width="70px"
-          class="login-from"
-      >
-        <el-form-item label="用户名" prop="name">
-          <el-input v-model="ruleForm.name"></el-input>
-        </el-form-item>
-        <el-form-item label="密码" prop="password">
-          <el-input
-              type="password"
-              v-model="ruleForm.password"
-              autocomplete="off"
-          ></el-input>
-        </el-form-item>
-      </el-form>
-      <div class="btnGroup">
-        <el-button
-            type="primary"
-            @click="submitForm('ruleForm')"
-            v-loading="loading"
-        >登录</el-button
-        >
-        <el-button @click="resetForm('ruleForm')">重置</el-button>
-        <router-link to="/register">
-          <el-button style="margin-left: 10px">注册</el-button>
-        </router-link>
+  <div class="loginbody">
+    <div class="logindata">
+      <div class="logintext">
+
+        <div class="form-wrapper" >
+          <div class="header">
+            Welcome
+          </div>
+        <el-form ref="form" :model="form" :rules="rules">
+          <el-form
+              :model="ruleForm"
+              status-icon
+              :rules="rules"
+              ref="ruleForm"
+              label-position="left"
+              label-width="70px"
+              class="login-from">
+            <el-form-item label="Name" prop="name">
+              <el-input v-model="ruleForm.name" style="width: 220px"></el-input>
+            </el-form-item>
+            <el-form-item label="Password" prop="password">
+              <el-input
+                  type="password"
+                  v-model="ruleForm.password"
+                  autocomplete="off"
+                  style="width: 220px"
+                  show-password></el-input>
+            </el-form-item>
+          </el-form>
+        </el-form>
+          <br />
+        <el-row :gutter="20">
+          <div class="btnGroup">
+            <el-button
+                type="primary"
+                @click="submitForm('ruleForm')"
+                v-loading="loading"
+                round
+                plain>Sign in</el-button>
+            <el-button @click="resetForm('ruleForm')" round plain type="warning">Reset</el-button>
+            <router-link to="/register">
+              <el-button style="margin-left: 10px" round plain type="info">Sign up</el-button>
+            </router-link>
+
+          </div>
+
+        </el-row>
+          <br /><br />
+          <div>
+            <el-link type="info" line-height="10px">I forgot password</el-link>
+          </div>
+        </div>
       </div>
-    </el-card>
+    </div>
   </div>
 </template>
 
@@ -120,15 +137,159 @@ export default {
   },
 };
 </script>
+<!--<style lang="less" scoped>-->
+<!--// 改变input里的字体颜色-->
+<!--/deep/input::-webkit-input-placeholder {-->
+<!--  color: #17a1e5;-->
+<!--  font-size: 15px;-->
+<!--}-->
+
+<!--// 改变input框背景颜色-->
+<!--/deep/.el-input__inner {-->
+<!--  background-color: transparent !important;-->
+<!--  border: 1px solid #1296db;-->
+<!--}-->
+<!--</style>-->
+
 
 <style scoped>
-/* 设置登录面板居中，宽度为400px */
-.box-card {
-  margin: auto auto;
+
+ .loginbody {
+   width: 100%;
+   height: 100%;
+   min-width: 1000px;
+   background-image: url("../../assets/gr.jpg");
+   /*background-image: url("../../assets/login2.jpg");*/
+   background-size: 100% 100%;
+   background-position: center center;
+   overflow: auto;
+   background-repeat: no-repeat;
+   position: fixed;
+   line-height: 100%;
+   padding-top: 150px;
+ }
+
+.logintext {
+  margin-bottom: 20px;
+  /*line-height: 50px;*/
+  text-align: center;
+  font-size: 30px;
+  font-weight: bolder;
+  color: white;
+  /*text-shadow: 2px 2px 4px #000000;*/
+}
+
+.logindata {
   width: 400px;
+  height: 300px;
+  transform: translate(-50%);
+  margin-left: 50%;
 }
-/* 设置登录面板中的表单居中 */
-.login-from {
-  margin: auto auto;
+
+
+/*ui*/
+/* /deep/ .el-form-item__label {
+  font-weight: bolder;
+  font-size: 15px;
+  text-align: left;
 }
+
+/deep/ .el-button {
+  width: 100%;
+  margin-bottom: 10px;
+
+} */
+
+ .form-wrapper {
+   width: 340px;
+   /*background-color: rgba(41, 45, 62, 0.8);*/
+   background-color: rgba(41, 45, 62, 0.75);
+   color: #fff;
+   border-radius: 3px;
+   padding: 50px;
+
+ }
+
+ .form-wrapper .header {
+   text-align: center;
+   font-size: 35px;
+   text-transform: uppercase;
+   line-height: 100px;
+
+ }
+
+ /*.form-wrapper .input-wrapper input {*/
+ /*  background-color: rgb(41, 45, 62);*/
+ /*  border: 0;*/
+ /*  width: 100%;*/
+ /*  text-align: center;*/
+ /*  font-size: 15px;*/
+ /*  color: #fff;*/
+ /*  outline: none;*/
+ /*}*/
+
+ /*.form-wrapper .input-wrapper input::placeholder {*/
+ /*  text-transform: uppercase;*/
+ /*}*/
+
+ /*.form-wrapper .input-wrapper .border-wrapper {*/
+ /*  background-image: linear-gradient(to right, #e8198b, #0eb4dd);*/
+ /*  width: 100%;*/
+ /*  height: 50px;*/
+ /*  margin-bottom: 20px;*/
+ /*  border-radius: 30px;*/
+ /*  display: flex;*/
+ /*  align-items: center;*/
+ /*  justify-content: center;*/
+ /*}*/
+
+ /*.form-wrapper .input-wrapper .border-wrapper .border-item {*/
+ /*  height: calc(100% - 4px);*/
+ /*  width: calc(100% - 4px);*/
+ /*  border-radius: 30px;*/
+ /*}*/
+
+ /*.form-wrapper .action {*/
+ /*  display: flex;*/
+ /*  justify-content: center;*/
+ /*}*/
+
+ /*.form-wrapper .action .btn {*/
+ /*  width: 60%;*/
+ /*  text-transform: uppercase;*/
+ /*  border: 2px solid #0e92b3;*/
+ /*  text-align: center;*/
+ /*  line-height: 50px;*/
+ /*  border-radius: 30px;*/
+ /*  cursor: pointer;*/
+ /*}*/
+
+ /*.form-wrapper .action .btn:hover {*/
+ /*  background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);*/
+ /*}*/
+
+ /*.form-wrapper .icon-wrapper {*/
+ /*  text-align: center;*/
+ /*  width: 60%;*/
+ /*  margin: 0 auto;*/
+ /*  margin-top: 20px;*/
+ /*  border-top: 1px dashed rgb(146, 146, 146);*/
+ /*  padding: 20px;*/
+ /*}*/
+
+ /*.form-wrapper .icon-wrapper i {*/
+ /*  font-size: 20px;*/
+ /*  color: rgb(187, 187, 187);*/
+ /*  cursor: pointer;*/
+ /*  border: 1px solid #fff;*/
+ /*  padding: 5px;*/
+ /*  border-radius: 20px;*/
+ /*}*/
+
+ /*.form-wrapper .icon-wrapper i:hover {*/
+ /*  background-color: #0e92b3;*/
+ /*}*/
+
+
+
 </style>

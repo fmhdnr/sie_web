@@ -3,6 +3,7 @@ const { defineConfig } = require('@vue/cli-service')
 module.exports = defineConfig({
   transpileDependencies: true,
   lintOnSave:false,
+
   devServer: {
     // 代理服务器可以将路由中的指定前缀转发到指定的后端服务器中
     proxy: {
