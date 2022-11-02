@@ -1,7 +1,10 @@
 <template>
-  <div>
-    <el-card class="box-card">
-      <h2>注册</h2>
+  <div class="loginbody">
+    <div class="logindata">
+      <div class="logintext">
+
+        <div class="form-wrapper" >
+      <h5 >Create new account</h5>
       <el-form
           :model="ruleForm"
           status-icon
@@ -12,14 +15,14 @@
           class="demo-ruleForm"
 
       >
-        <el-form-item label="Name" prop="name">
-          <el-input v-model="ruleForm.name"></el-input>
+        <el-form-item label="Name" prop="name" label-width="150px">
+          <el-input v-model="ruleForm.name" style="width: 220px"></el-input>
         </el-form-item>
-        <el-form-item label="Email" prop="email">
-            <el-input v-model="ruleForm.email" ></el-input>
+        <el-form-item label="Email" prop="email" label-width="150px">
+            <el-input v-model="ruleForm.email" style="width: 220px"></el-input>
         </el-form-item>
-        <el-form-item label="Question" prop="question">
-          <el-select v-model="ruleForm.question" clearable placeholder="Please select" >
+        <el-form-item label="Question" prop="question" label-width="150px">
+          <el-select v-model="ruleForm.question" clearable placeholder="Please select" style="width: 220px">
             <el-option
                 v-for="item in Question"
                 :key="item.value"
@@ -28,14 +31,12 @@
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="Answer" prop="answer">
-          <el-input
-              v-model="ruleForm.answer"
-          ></el-input>
+        <el-form-item label="Answer" prop="answer" label-width="150px">
+          <el-input v-model="ruleForm.answer"  style="width: 220px"></el-input>
 
         </el-form-item>
-          <el-form-item label="School" prop="school">
-            <el-select v-model="ruleForm.school" placeholder="Please select" clearable>
+          <el-form-item label="School" prop="school" label-width="150px">
+            <el-select v-model="ruleForm.school" placeholder="Please select" clearable style="width: 220px">
               <el-option
                   v-for="item in School"
                   :key="item.value"
@@ -47,38 +48,41 @@
             </el-select>
         </el-form-item>
 
-        <el-form-item label="Password" prop="pass">
+        <el-form-item label="Password" prop="pass" label-width="150px">
           <el-input
               type="password"
               v-model="ruleForm.pass"
               autocomplete="off"
+              style="width: 220px"
           ></el-input>
         </el-form-item>
-        <el-form-item label="Confirm Password" prop="password">
+        <el-form-item label="Confirm Password" prop="password" label-width="150px">
           <el-input
               type="password"
               v-model="ruleForm.password"
               autocomplete="off"
+              style="width: 220px"
           ></el-input>
         </el-form-item>
       </el-form>
       <div class="btnGroup">
-        <el-button type="primary" @click="submitForm('ruleForm')"
-        >提交</el-button
-        >
-        <el-button @click="resetForm('ruleForm')">重置</el-button>
-        <el-button @click="goBack">返回</el-button>
+        <el-button type="primary" @click="submitForm('ruleForm')" round plain >Sign up</el-button>
+        <el-button @click="resetForm('ruleForm')" round plain type="warning">Reset</el-button>
+        <el-button @click="goBack" round plain type="info">Return</el-button>
       </div>
-    </el-card>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+
 export default {
   data() {
     var validatePass = (rule, value, callback) => {
       if (value === "") {
-        callback(new Error("请输入密码"));
+        callback(new Error("Please enter the password"));
       } else {
         if (this.ruleForm.checkPass !== "") {
           this.$refs.ruleForm.validateField("checkPass");
@@ -88,9 +92,9 @@ export default {
     };
     var validatePass2 = (rule, value, callback) => {
       if (value === "") {
-        callback(new Error("请再次输入密码"));
+        callback(new Error("Please enter the password again"));
       } else if (value !== this.ruleForm.pass) {
-        callback(new Error("两次输入密码不一致!"));
+        callback(new Error("The passwords entered twice are inconsistent!"));
       } else {
         callback();
       }
@@ -127,14 +131,14 @@ export default {
       },
       rules: {
         name: [
-          { required: true, message: "用户名不能为空！", trigger: "blur" },
+          { required: true, message: "Name cannot be empty!", trigger: "blur" },
         ],
         email: [
-          { required: true, message: "请输入邮箱", trigger: "blur" },
+          { required: true, message: "Please enter your email", trigger: "blur" },
           {
             validator: function(rule, value, callback) {
               if (/^([a-zA-Z0-9]+[_|_|.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|_|.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/.test(value) == false) {
-                callback(new Error("请输入邮箱"));
+                callback(new Error("Email format error"));
               } else {
                 //校验通过
                 callback();
@@ -148,21 +152,21 @@ export default {
           {
             validator:function(rule,value,callback){
               if (value.length === 0) {
-                callback(new Error("请选择问题"));
+                callback(new Error("Please select a question"));
               } else
                 callback();
             }
           }
         ],
         answer:[
-          { required: true, message: "请输入回答", trigger: "blur" }
+          { required: true, message: "Please enter the answer", trigger: "blur" }
         ],
         school :[
           {require: true,trigger: "blur" },
           {
             validator:function(rule,value,callback){
               if (value.length === 0) {
-                callback(new Error("请选择学校"));
+                callback(new Error("Please select a school"));
               } else
                 callback();
               }
@@ -207,10 +211,12 @@ export default {
               if (res.data.code === "200") {  // 当响应的编码为 0 时，说明注册成功
                 // 显示后端响应的成功信息
                 console.log(res);
+
                 this.$message({
                   message: res.data.msg,
                   type: "success",
                 });
+
               }else{  // 当响应的编码不为 0 时，说明注册失败
                 // 显示后端响应的失败信息
                 this.$message({
@@ -240,11 +246,67 @@ export default {
 </script>
 
 <style scoped>
-.box-card {
-  margin: auto auto;
-  width: 500px;
+.loginbody {
+  width: 100%;
+  height: 100%;
+  min-width: 1000px;
+  background-image: url("../../assets/gr.jpg");
+  /*background-image: url("../../assets/login2.jpg");*/
+  background-size: 100% 100%;
+  background-position: center center;
+  overflow: auto;
+  background-repeat: no-repeat;
+  position: fixed;
+  line-height: 100%;
+  padding-top: 150px;
 }
-.login-from {
-  margin: auto auto;
+
+.logintext {
+  margin-bottom: 20px;
+  /*line-height: 50px;*/
+  text-align: center;
+  font-size: 30px;
+  font-weight: bolder;
+  color: white;
+  /*text-shadow: 2px 2px 4px #000000;*/
+}
+
+.logindata {
+  width: 400px;
+  height: 300px;
+  transform: translate(-50%);
+  margin-left: 50%;
+}
+
+
+/*ui*/
+/* /deep/ .el-form-item__label {
+  font-weight: bolder;
+  font-size: 15px;
+  text-align: left;
+}
+
+/deep/ .el-button {
+  width: 100%;
+  margin-bottom: 10px;
+
+} */
+
+.form-wrapper {
+  width: 340px;
+  /*background-color: rgba(41, 45, 62, 0.8);*/
+  background-color: rgba(41, 45, 62, 0.75);
+  color: #fff;
+  border-radius: 3px;
+  padding: 50px;
+
+}
+
+.form-wrapper .header {
+  text-align: center;
+  font-size: 35px;
+  text-transform: uppercase;
+  line-height: 100px;
+
 }
 </style>

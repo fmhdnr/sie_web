@@ -4,9 +4,7 @@
       <div class="logintext">
 
         <div class="form-wrapper" >
-          <div class="header">
-            Welcome
-          </div>
+          <h4>Welcome</h4>
         <el-form ref="form" :model="form" :rules="rules">
           <el-form
               :model="ruleForm"

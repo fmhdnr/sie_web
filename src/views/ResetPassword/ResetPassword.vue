@@ -9,8 +9,8 @@
 <!--            <el-button class="btn1" @click="$router.push({path:'/login'})"  icon="el-icon-arrow-left" disabled>返 回</el-button>-->
           </div>
           <el-steps :active="active" finish-status="success" align-center>
-          <el-step title="账户验证"></el-step>
-          <el-step title="完成设置"></el-step>
+          <el-step title="Account verification"></el-step>
+          <el-step title="Finish setting"></el-step>
         </el-steps>
         <br>
           <div v-if="active=='0'">
@@ -30,11 +30,11 @@
                 <el-input v-model="ruleForm.name" style="width: 220px">
                 </el-input>
               </el-form-item>
-              <el-form-item prop="secQueId"  label="选择密保问题" label-width="150px">
+              <el-form-item prop="question"   label-width="150px">
                 <span slot="label">
-                <span style="color: #173f8f">选择密保问题</span>
+                <span style="color: #173f8f">Choose question</span>
                 </span>
-                <el-select v-model="ruleForm.question" class="wid" style="width: 220px">
+                <el-select v-model="ruleForm.question" class="wid" style="width: 220px" placeholder="Please select">
                   <el-option
                       v-for="item in Question"
                       :key="item.id"
@@ -46,7 +46,7 @@
               </el-form-item>
               <el-form-item prop="answer" label-width="150px">
                 <span slot="label">
-                <span style="color: #173f8f">答案</span>
+                <span style="color: #173f8f">answer</span>
                 </span>
                 <el-input v-model="ruleForm.answer" type="text" style="width: 220px">
                 </el-input>
@@ -74,14 +74,14 @@
                 ></el-input>
               </el-form-item>
             </el-form>
-            <el-button  @click="submitForm('ruleForm')">确认</el-button>
+            <el-button  @click="submitForm('ruleForm')" round plain type="info">Confirm</el-button>
 
 
 
           </div>
           <div v-if="active=='1'">
             <router-link to="/login">
-              <el-button style="margin-left: 10px" round plain type="info">Sign in</el-button>
+              <el-button style="margin-left: 10px" round plain type="info" >Sign in</el-button>
             </router-link>
           </div>
 
@@ -98,7 +98,7 @@ export default {
   data() {
     var validatePass = (rule, value, callback) => {
       if (value === "") {
-        callback(new Error("请输入密码"));
+        callback(new Error("Please enter the password"));
       } else {
         if (this.ruleForm.checkPass !== "") {
           this.$refs.ruleForm.validateField("checkPass");
@@ -108,9 +108,9 @@ export default {
     };
     var validatePass2 = (rule, value, callback) => {
       if (value === "") {
-        callback(new Error("请再次输入密码"));
+        callback(new Error("Please enter the password again"));
       } else if (value !== this.ruleForm.pass) {
-        callback(new Error("两次输入密码不一致!"));
+        callback(new Error("The passwords entered twice are inconsistent!"));
       } else {
         callback();
       }
@@ -136,21 +136,22 @@ export default {
       },
       rules: {
         name: [
-          { required: true, message: "用户名不能为空！", trigger: "blur" },
+          { required: true, message: "Name cannot be empty!", trigger: "blur" },
         ],
         question :[
           {require: true,trigger: "blur"},
           {
             validator:function(rule,value,callback){
               if (value.length === 0) {
-                callback(new Error("请选择问题"));
+                callback(new Error("Please select a question"));
               } else
                 callback();
             }
           }
         ],
+
         answer:[
-          { required: true, message: "请输入回答", trigger: "blur" }
+          { required: true, message: "Please enter the answer", trigger: "blur" }
         ],
         pass: [{ required: true, validator: validatePass, trigger: "blur" }],
         password: [
@@ -253,7 +254,7 @@ export default {
   height: 100%;
   min-width: 1000px;
   /*background-image: url("../../assets/login2.jpg");*/
-  /*background-image: url("../../assets/login2.jpg");*/
+  background-image: url("../../assets/login2.jpg");
   background-size: 100% 100%;
   background-position: center center;
   overflow: auto;
