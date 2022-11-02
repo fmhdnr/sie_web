@@ -5,7 +5,7 @@
 
         <div class="form-wrapper" >
           <div class="d2">
-            <el-link :underline="false" class="btn1" @click="$router.push({path:'/login'})" icon="el-icon-arrow-left" type="primary">返回</el-link>
+            <el-link :underline="false" class="btn1" @click="$router.push({path:'/login'})" icon="el-icon-arrow-left" type="primary">Return</el-link>
 <!--            <el-button class="btn1" @click="$router.push({path:'/login'})"  icon="el-icon-arrow-left" disabled>返 回</el-button>-->
           </div>
           <el-steps :active="active" finish-status="success" align-center>
@@ -242,7 +242,7 @@ export default {
 }
 .btn1 {
   position: relative;
-  right: 330px;
+  right: 315px;
   top: -15px;
   /*margin-left:-20px;*/
   /*margin-top:-30px*/
