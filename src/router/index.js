@@ -6,6 +6,7 @@ import VueRouter from "vue-router"
 import Login from '../views/login/Login'
 import Register from "@/views/register/Register";
 import Home from "@/views/home/Home";
+import ResetPassword from "@/views/ResetPassword/ResetPassword";
 
 // 创建并暴露一个路由器
 export default new VueRouter({
@@ -26,6 +27,10 @@ export default new VueRouter({
         {
             path:'/home',
             component:Home
+        },
+        {
+            path:'/resetpassword',
+            component:ResetPassword
         }
     ]
 })

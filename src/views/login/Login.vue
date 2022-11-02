@@ -48,7 +48,9 @@
         </el-row>
           <br /><br />
           <div>
+            <router-link to="/resetpassword">
             <el-link type="info" line-height="10px">I forgot password</el-link>
+            </router-link>
           </div>
         </div>
       </div>
@@ -102,7 +104,7 @@ export default {
             //   password: _this.ruleForm.password
             // },
           }).then((res) => { // 当收到后端的响应时执行该括号内的代码，res为响应信息，也就是后端返回的信息
-            console.log(res.data.code)
+            console.log(res.data)
             if (res.data.code === 200) {  // 当响应的编码为 0 时，说明登录成功
               // 将用户信息存储到sessionStorage中
               sessionStorage.setItem("userInfo", JSON.stringify(res.data.data));
