@@ -9,7 +9,7 @@ import Home from "@/views/home/Home";
 import ResetPassword from "@/views/ResetPassword/ResetPassword";
 
 // 创建并暴露一个路由器
-export default new VueRouter({
+const router = new VueRouter({
     mode: 'history',    // 路由模式，该模式不会在地址中显示井号#
     routes: [
         {
@@ -17,16 +17,21 @@ export default new VueRouter({
             redirect: '/login'  // 重定向
         },
         {
+            name: 'Login',
             path: '/login',     // 路径
             component: Login    // 跳转到的组件
         },
         {
-            path:'/register',
-            component:Register
+            name: 'Register',
+            path: '/register',
+            component: Register
         },
         {
-            path:'/home',
-            component:Home
+            path: '/home',
+            component: Home,
+            meta: {
+                authRequired: true
+            }
         },
         {
             path:'/resetpassword',
@@ -34,6 +39,17 @@ export default new VueRouter({
         }
     ]
 })
+
+router.beforeEach((to, from, next) => {
+    const token = localStorage.getItem('userInfo')
+    if (!(to.name === 'Login' || to.name === 'Register') && !token) {
+        next({name: 'Login'})
+    }else {
+        next()
+    }
+})
+
+export default router
 
 
 
