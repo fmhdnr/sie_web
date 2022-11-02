@@ -4,6 +4,7 @@
       <div class="logintext">
 
         <div class="form-wrapper" >
+          <h5 >Reset password</h5>
           <div class="d2">
             <el-link :underline="false" class="btn1" @click="$router.push({path:'/login'})" icon="el-icon-arrow-left" type="primary">Return</el-link>
 <!--            <el-button class="btn1" @click="$router.push({path:'/login'})"  icon="el-icon-arrow-left" disabled>返 回</el-button>-->
@@ -243,7 +244,7 @@ export default {
 .btn1 {
   position: relative;
   right: 315px;
-  top: -15px;
+  top: -105px;
   /*margin-left:-20px;*/
   /*margin-top:-30px*/
 }
