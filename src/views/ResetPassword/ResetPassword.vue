@@ -26,14 +26,14 @@
             >
               <el-form-item prop="name" label-width="150px">
                 <span slot="label">
-                <span style="color: #173f8f">Name</span>
+                <span style="color: white">Name</span>
                 </span>
                 <el-input v-model="ruleForm.name" style="width: 220px">
                 </el-input>
               </el-form-item>
               <el-form-item prop="question"   label-width="150px">
                 <span slot="label">
-                <span style="color: #173f8f">Choose question</span>
+                <span style="color: white">Choose question</span>
                 </span>
                 <el-select v-model="ruleForm.question" class="wid" style="width: 220px" placeholder="Please select">
                   <el-option
@@ -47,14 +47,14 @@
               </el-form-item>
               <el-form-item prop="answer" label-width="150px">
                 <span slot="label">
-                <span style="color: #173f8f">answer</span>
+                <span style="color: white">answer</span>
                 </span>
                 <el-input v-model="ruleForm.answer" type="text" style="width: 220px">
                 </el-input>
               </el-form-item>
               <el-form-item label-width="150px" prop="pass">
               <span slot="label">
-                <span style="color: #173f8f">Password</span>
+                <span style="color: white">Password</span>
                 </span>
                 <el-input
                     type="password"
@@ -65,7 +65,7 @@
               </el-form-item>
               <el-form-item label-width="150px" prop="password">
               <span slot="label">
-                <span style="color: #173f8f">Confirm Password</span>
+                <span style="color: white">Confirm Password</span>
                 </span>
                 <el-input
                     type="password"
