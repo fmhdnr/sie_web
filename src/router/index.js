@@ -34,6 +34,7 @@ const router = new VueRouter({
             }
         },
         {
+            name:'ResetPassword',
             path:'/resetpassword',
             component:ResetPassword
         }
@@ -42,7 +43,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
     const token = localStorage.getItem('userInfo')
-    if (!(to.name === 'Login' || to.name === 'Register') && !token) {
+    if (!(to.name === 'Login' || to.name === 'Register' || to.name==='ResetPassword') && !token) {
         next({name: 'Login'})
     }else {
         next()

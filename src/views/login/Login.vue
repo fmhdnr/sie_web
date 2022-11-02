@@ -91,7 +91,6 @@ export default {
             name: _this.ruleForm.name,
             password: _this.ruleForm.password
           };
-
           login(JSON.stringify(param)).then((res) => { // 当收到后端的响应时执行该括号内的代码，res为响应信息，也就是后端返回的信息
             if (res.data.code === 200) {  // 当响应的编码为 0 时，说明登录成功
               // 将用户信息存储到localStorage中

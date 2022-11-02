@@ -92,9 +92,9 @@
   </div>
 </template>
 <script>
+import {forgetPassword} from "@/api/login.js";
 
 export default {
-
 
   data() {
     var validatePass = (rule, value, callback) => {
@@ -174,14 +174,7 @@ export default {
             answer:_this.ruleForm.answer,
             password: _this.ruleForm.password,
           };
-          this.axios({     // axios 向后端发起请求
-            url: "/api/user/forgetPassword",  // 请求地址
-            method: "put",             // 请求方法
-            headers: {                  // 请求头
-              "Content-Type": "application/json",
-            },
-            data: JSON.stringify(param),
-          }).then((res) => { // 当收到后端的响应时执行该括号内的代码，res 为响应信息，也就是后端返回的信息
+          forgetPassword(JSON.stringify(param)).then((res) => { // 当收到后端的响应时执行该括号内的代码，res 为响应信息，也就是后端返回的信息
             console.log(res);
             if (res.data.code === 200) {  // 当响应的编码为 0 时，说明注册成功
               // 显示后端响应的成功信息

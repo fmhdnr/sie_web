@@ -15,3 +15,11 @@ export function getUserInfo(userId) {
     })
 }
 
+export function forgetPassword(data) {
+    return request({
+        url: "/user/forgetPassword",
+        method: 'put',
+        data
+    })
+}
+

@@ -112,11 +112,11 @@ export default {
       ],
       Question:[
         {
-          value: 'Dad',
+          value: 'who is your dad?',
           label: 'who is your dad?'
         },
         {
-          value: 'Mom',
+          value: 'who is your mom?',
           label: 'who is your mom?'
         }
       ],
@@ -208,10 +208,10 @@ export default {
               data: JSON.stringify(param),
             }).then((res) => { // 当收到后端的响应时执行该括号内的代码，res 为响应信息，也就是后端返回的信息
               console.log(res);
-              if (res.data.code === "200") {  // 当响应的编码为 0 时，说明注册成功
+              if (res.data.code === 200) {  // 当响应的编码为 0 时，说明注册成功
                 // 显示后端响应的成功信息
                 console.log(res);
-
+                this.$router.push("/login")
                 this.$message({
                   message: res.data.msg,
                   type: "success",

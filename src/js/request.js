@@ -50,9 +50,9 @@ request.interceptors.response.use(
         }
     },
     (response) => {
-        const res = response.data
-        const msg = res.msg
-        Message.error(msg)
+        // const res = response.data
+        // const msg = res.msg
+        // Message.error(msg)
         if (response.data.code === 401 && response.data.msg === 'user authentication failed') router.push({name: 'Login'})
         return Promise.reject(response)
     }
