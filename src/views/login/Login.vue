@@ -3,51 +3,59 @@
     <div class="logindata">
       <div class="logintext">
 
-        <div class="form-wrapper" >
+        <div class="form-wrapper">
           <h4>Welcome</h4>
-        <el-form ref="form" :model="form" :rules="rules">
-          <el-form
-              :model="ruleForm"
-              status-icon
-              :rules="rules"
-              ref="ruleForm"
-              label-position="left"
-              label-width="70px"
-              class="login-from">
-            <el-form-item label="Name" prop="name">
+          <el-form ref="form" :model="form" :rules="rules">
+            <el-form
+                :model="ruleForm"
+                status-icon
+                :rules="rules"
+                ref="ruleForm"
+                label-position="left"
+                label-width="70px"
+                class="login-from">
+              <el-form-item  prop="name">
+                <span slot="label">
+                <span style="color: white">Name</span>
+                </span>
               <el-input v-model="ruleForm.name" style="width: 220px"></el-input>
-            </el-form-item>
-            <el-form-item label="Password" prop="password">
-              <el-input
-                  type="password"
-                  v-model="ruleForm.password"
-                  autocomplete="off"
-                  style="width: 220px"
-                  show-password></el-input>
-            </el-form-item>
-          </el-form>
-        </el-form>
-          <br />
-        <el-row :gutter="20">
-          <div class="btnGroup">
-            <el-button
-                type="primary"
-                @click="submitForm('ruleForm')"
-                v-loading="loading"
-                round
-                plain>Sign in</el-button>
-            <el-button @click="resetForm('ruleForm')" round plain type="warning">Reset</el-button>
-            <router-link to="/register">
-              <el-button style="margin-left: 10px" round plain type="info">Sign up</el-button>
-            </router-link>
+              </el-form-item>
 
-          </div>
+              <el-form-item  prop="password">
+                <span slot="label">
+                <span style="color: white">Password</span>
+                </span>
+                <el-input
+                    type="password"
+                    v-model="ruleForm.password"
+                    autocomplete="off"
+                    style="width: 220px"
+                    show-password></el-input>
+              </el-form-item>
+            </el-form>
+          </el-form>
+          <br/>
+          <el-row :gutter="20">
+            <div class="btnGroup">
+              <el-button
+                  type="primary"
+                  @click="submitForm('ruleForm')"
+                  v-loading="loading"
+                  round
+                  plain>Sign in
+              </el-button>
+              <el-button @click="resetForm('ruleForm')" round plain type="warning">Reset</el-button>
+              <router-link to="/register">
+                <el-button style="margin-left: 10px" round plain type="info">Sign up</el-button>
+              </router-link>
+
+            </div>
 
           </el-row>
           <br/><br/>
           <div>
             <router-link to="/resetpassword">
-            <el-link type="info" line-height="10px">I forgot password</el-link>
+              <el-link type="info" line-height="10px">I forgot password</el-link>
             </router-link>
           </div>
         </div>

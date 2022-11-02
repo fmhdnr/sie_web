@@ -31,7 +31,7 @@
                 <el-input v-model="ruleForm.name" style="width: 220px">
                 </el-input>
               </el-form-item>
-              <el-form-item prop="question"   label-width="150px">
+              <el-form-item prop="question"   label-width="150px" :required="true">
                 <span slot="label">
                 <span style="color: white">Choose question</span>
                 </span>

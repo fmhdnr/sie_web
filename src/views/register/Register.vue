@@ -15,13 +15,22 @@
           class="demo-ruleForm"
 
       >
-        <el-form-item label="Name" prop="name" label-width="150px">
+        <el-form-item prop="name" label-width="150px">
+          <span slot="label">
+                <span style="color: white">Name</span>
+          </span>
           <el-input v-model="ruleForm.name" style="width: 220px"></el-input>
         </el-form-item>
-        <el-form-item label="Email" prop="email" label-width="150px">
+        <el-form-item prop="email" label-width="150px">
+          <span slot="label">
+                <span style="color: white">Email</span>
+          </span>
             <el-input v-model="ruleForm.email" style="width: 220px"></el-input>
         </el-form-item>
-        <el-form-item label="Question" prop="question" label-width="150px">
+        <el-form-item prop="question" label-width="150px" :required="true">
+          <span slot="label">
+                <span style="color: white">Question</span>
+          </span>
           <el-select v-model="ruleForm.question" clearable placeholder="Please select" style="width: 220px">
             <el-option
                 v-for="item in Question"
@@ -31,11 +40,16 @@
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="Answer" prop="answer" label-width="150px">
+        <el-form-item prop="answer" label-width="150px">
+          <span slot="label">
+                <span style="color: white">Answer</span>
+          </span>
           <el-input v-model="ruleForm.answer"  style="width: 220px"></el-input>
-
         </el-form-item>
-          <el-form-item label="School" prop="school" label-width="150px">
+          <el-form-item prop="school" label-width="150px" :required="true">
+            <span slot="label">
+                <span style="color: white">School</span>
+          </span>
             <el-select v-model="ruleForm.school" placeholder="Please select" clearable style="width: 220px">
               <el-option
                   v-for="item in School"
@@ -48,7 +62,10 @@
             </el-select>
         </el-form-item>
 
-        <el-form-item label="Password" prop="pass" label-width="150px">
+        <el-form-item prop="pass" label-width="150px">
+          <span slot="label">
+                <span style="color: white">Password</span>
+          </span>
           <el-input
               type="password"
               v-model="ruleForm.pass"
@@ -56,7 +73,10 @@
               style="width: 220px"
           ></el-input>
         </el-form-item>
-        <el-form-item label="Confirm Password" prop="password" label-width="150px">
+        <el-form-item  prop="password" label-width="150px">
+          <span slot="label">
+                <span style="color: white">Confirm Password</span>
+          </span>
           <el-input
               type="password"
               v-model="ruleForm.password"
@@ -148,7 +168,7 @@ export default {
           }
         ],
         question :[
-          {require: true,trigger: "blur"},
+          { require: true,trigger: "blur"},
           {
             validator:function(rule,value,callback){
               if (value.length === 0) {
