@@ -21,5 +21,7 @@ export function forgetPassword(data) {
         method: 'put',
         data
     })
+
+
 }
 

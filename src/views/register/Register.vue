@@ -206,11 +206,11 @@ export default {
           this.loading = true;  // 提交按钮显示加载动画
           if (valid) {
             let _this = this;
-            if(_this.resetForm.school==="Northeastern University"){
-              _this.resetForm.school = 1
-            }else {
-              _this.resetForm.school = 2
-            }
+            // if(_this.resetForm.school==="Northeastern University"){
+            //   _this.resetForm.school = 1
+            // }else {
+            //   _this.resetForm.school = 2
+            // }
             let param = {
               name: _this.ruleForm.name,
               password: _this.ruleForm.password,

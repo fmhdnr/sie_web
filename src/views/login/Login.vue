@@ -5,7 +5,7 @@
 
         <div class="form-wrapper">
           <h4>Welcome</h4>
-          <el-form ref="form" :model="form" :rules="rules">
+
             <el-form
                 :model="ruleForm"
                 status-icon
@@ -25,6 +25,7 @@
                 <span slot="label">
                 <span style="color: white">Password</span>
                 </span>
+
                 <el-input
                     type="password"
                     v-model="ruleForm.password"
@@ -33,7 +34,6 @@
                     show-password></el-input>
               </el-form-item>
             </el-form>
-          </el-form>
           <br/>
           <el-row :gutter="20">
             <div class="btnGroup">
@@ -48,9 +48,7 @@
               <router-link to="/register">
                 <el-button style="margin-left: 10px" round plain type="info">Sign up</el-button>
               </router-link>
-
             </div>
-
           </el-row>
           <br/><br/>
           <div>
@@ -100,6 +98,7 @@ export default {
             password: _this.ruleForm.password
           };
           login(JSON.stringify(param)).then((res) => { // 当收到后端的响应时执行该括号内的代码，res为响应信息，也就是后端返回的信息
+            console.log(res)
             if (res.data.code === 200) {  // 当响应的编码为 0 时，说明登录成功
               // 将用户信息存储到localStorage中
               localStorage.setItem("userInfo", res.data.data.token)
@@ -154,9 +153,10 @@ export default {
 .loginbody {
   width: 100%;
   height: 100%;
-  min-width: 1000px;
+  /*min-width: 1000px;*/
   background-image: url("../../assets/gr.jpg");
   /*background-image: url("../../assets/login2.jpg");*/
+  background-color: #daeafc;
   background-size: 100% 100%;
   background-position: center center;
   overflow: auto;

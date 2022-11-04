@@ -1,13 +1,26 @@
 <template>
-  <div>
-    <h2>欢迎{{ user.name }}！您的 token 为{{ user.token }}</h2>
-    <el-button @click="logout"> 登出</el-button>
+  <div class="body">
+    <div >
+    <el-card class="box-card">
+        <span>
+          <h2 style="color: #206BC4">Welcome to SIE</h2>
+        </span>
+        <span>
+          <h6 style="color: darkgrey">Hello {{ user.name }}!</h6>
+        </span>
+<!--      <el-empty description="Home"></el-empty>-->
+    </el-card>
+    </div>
   </div>
+
+
+
 </template>
 
 <script>
 import {getUserInfo} from '@/api/login.js'
 import jwtDecode from 'jwt-decode'
+
 
 export default {
 
@@ -15,7 +28,7 @@ export default {
     return {
       user: {
         name: "",
-        token: ""
+        token: "",
       },
     };
   },
@@ -30,8 +43,9 @@ export default {
   created() {
     if (localStorage.getItem('userInfo')) {
       getUserInfo(jwtDecode(localStorage.getItem('userInfo')).sub).then(res=>{
-        console.log(res.data.data)
+        console.log(res.data)
         this.user.name = res.data.data
+
       })
     }
   },
@@ -45,4 +59,24 @@ export default {
 </script>
 
 <style scoped>
+.body{
+  width: 100%;
+  height: 100%;
+  background-color: #F1F5F9;
+  background-size: 100% 100%;
+  background-position: center center;
+  overflow: auto;
+  background-repeat: no-repeat;
+  position: fixed;
+}
+.box-card {
+  width: 1000px;
+  /*height: 150px;*/
+  background-color: #DBE7F4;
+  position: absolute;
+  top:90px;
+  left: 0;
+  right:0;
+  margin: auto;
+}
 </style>

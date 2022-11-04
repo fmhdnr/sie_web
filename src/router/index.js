@@ -7,6 +7,9 @@ import Login from '../views/login/Login'
 import Register from "@/views/register/Register";
 import Home from "@/views/home/Home";
 import ResetPassword from "@/views/ResetPassword/ResetPassword";
+import Club from "@/views/club/Club";
+import Shop from "@/views/shop/Shop";
+import Tutor from "@/views/tutor/Tutor";
 
 // 创建并暴露一个路由器
 const router = new VueRouter({
@@ -27,17 +30,48 @@ const router = new VueRouter({
             component: Register
         },
         {
-            path: '/home',
-            component: Home,
-            meta: {
-                authRequired: true
-            }
+            path: '/',
+            component: () => import('@/views/Main'),
+            children: [
+                {
+                    path: '/home',
+                    component: Home,
+                    meta: {
+                        authRequired: true
+                    }
+                },
+                {
+                    name:'Club',
+                    path:'/club',
+                    component:Club,
+                    meta: {
+                        authRequired: true
+                    }
+                },
+                {
+                    name: 'Shop',
+                    path:'/shop',
+                    component:Shop,
+                    meta: {
+                        authRequired: true
+                    }
+                },
+                {
+                    name: 'Tutor',
+                    path:'/tutor',
+                    component:Tutor,
+                    meta: {
+                        authRequired: true
+                    }
+                },
+            ]
         },
         {
             name:'ResetPassword',
             path:'/resetpassword',
             component:ResetPassword
-        }
+        },
+
     ]
 })
 
