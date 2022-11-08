@@ -102,6 +102,7 @@ export default {
             if (res.data.code === 200) {  // 当响应的编码为 0 时，说明登录成功
               // 将用户信息存储到localStorage中
               localStorage.setItem("userInfo", res.data.data.token)
+
               // 跳转页面到首页
               this.$router.push('/home');
               // 显示后端响应的成功信息
@@ -133,19 +134,7 @@ export default {
   },
 };
 </script>
-<!--<style lang="less" scoped>-->
-<!--// 改变input里的字体颜色-->
-<!--/deep/input::-webkit-input-placeholder {-->
-<!--  color: #17a1e5;-->
-<!--  font-size: 15px;-->
-<!--}-->
 
-<!--// 改变input框背景颜色-->
-<!--/deep/.el-input__inner {-->
-<!--  background-color: transparent !important;-->
-<!--  border: 1px solid #1296db;-->
-<!--}-->
-<!--</style>-->
 
 
 <style scoped>
@@ -173,6 +162,7 @@ export default {
   font-size: 30px;
   font-weight: bolder;
   color: white;
+
   /*text-shadow: 2px 2px 4px #000000;*/
 }
 

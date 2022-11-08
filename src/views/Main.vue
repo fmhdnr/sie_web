@@ -6,15 +6,15 @@
             <i class="el-icon-house"></i>
             <span slot="title">Home</span>
           </el-menu-item>
-          <el-menu-item index="/club/" class="menu1">
+          <el-menu-item index="/club" class="menu1">
             <i class="el-icon-school"></i>
             <span slot="title">Clubs</span>
           </el-menu-item>
-          <el-menu-item index="/shop/" class="menu2">
+          <el-menu-item index="/shop" class="menu2">
             <i class="el-icon-shopping-cart-1"></i>
             <span slot="title">Shop</span>
           </el-menu-item>
-          <el-menu-item index="/tutor/" class="menu3">
+          <el-menu-item index="/tutor" class="menu3">
             <i class="el-icon-user"></i>
             <span slot="title">Tutor</span>
           </el-menu-item>
@@ -22,8 +22,9 @@
 <!--            <span><el-button  class="btn1" @click="logout" autofocus >Sign out</el-button></span>-->
 <!--          </el-menu-item>-->
           <el-dropdown @command="handleCommand" class="dropdown" ><!--  绑定指令,在methods里定义-->
-            <span class="el-dropdown-link">&nbsp;&nbsp;&nbsp;&nbsp;{{ user.name }}</span>
-            <img src="../assets/img.svg" height="30" width="30"/>
+<!--            <span class="el-dropdown-link">&nbsp;&nbsp;&nbsp;&nbsp;{{ user.name }}</span>-->
+<!--            <img src="../assets/img.svg" height="30" width="30"/>-->
+            <el-avatar style="margin-left: 10px" class="el-dropdown-link"> {{ user.name }} </el-avatar>
 <!--            <span class="el-dropdown-link"><h6 style="color: darkgrey">Hello {{ user.name }}!</h6></span>-->
             <el-dropdown-menu slot="dropdown" class="dropdown1">
               <!-- icon是修改图标 ，command是点击后传给方法的值-->
@@ -71,7 +72,7 @@ export default {
     if (localStorage.getItem('userInfo')) {
       getUserInfo(jwtDecode(localStorage.getItem('userInfo')).sub).then(res=>{
         console.log(res.data)
-        this.user.name = res.data.data
+        this.user.name = res.data.data.name
 
       })
     }
@@ -114,7 +115,7 @@ export default {
   line-height: 60px;
   margin: 0;
   border-bottom: 2px solid transparent;
-  color: #909399;
+  color: #206BC4;
 }
 .btn1{
   margin: auto;
@@ -130,10 +131,10 @@ export default {
 }
 
 .el-dropdown-link{
-  color: cornflowerblue;
+  /*color: #206BC4;*/
   cursor: pointer; /* 鼠标放上去是手的形状 */
-  float: right; /* 浮动在右边 */
-  margin-right: 10px;
-  margin-top: -6px;
+  /*float: right; !* 浮动在右边 *!*/
+  /*margin-right: 10px;*/
+  /*margin-top: -9px;*/
 }
 </style>
