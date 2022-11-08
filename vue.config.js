@@ -9,7 +9,7 @@ module.exports = defineConfig({
     proxy: {
       '/api': {
         target: 'http://localhost:8080',
-        // ws: true, // 是否启用websockets
+        ws: true, // 是否启用websockets
         changeOrigin: true,  // 代理时是否更改host
         pathRewrite: {
           '^/api': '' //这里理解成用'/api'代替target里面的地址

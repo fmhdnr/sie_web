@@ -9,6 +9,9 @@
           <h6 style="color: darkgrey">Hello {{ user.name }}!</h6>
         </span>
 <!--      <el-empty description="Home"></el-empty>-->
+      <span>
+          <h6 style="color: darkgrey">Here is {{ user.schoolid }}.</h6>
+        </span>
     </el-card>
     </div>
   </div>
@@ -43,9 +46,13 @@ export default {
   created() {
     if (localStorage.getItem('userInfo')) {
       getUserInfo(jwtDecode(localStorage.getItem('userInfo')).sub).then(res=>{
-        console.log(res.data)
-        this.user.name = res.data.data
-
+        this.user.name = res.data.data.name
+        this.user.schoolid = res.data.data.schoolId
+        if(this.user.schoolid==1){
+          this.user.schoolid = "Northeastern University"
+        }else {
+          this.user.schoolid = "The University of Texas at Arlington"
+        }
       })
     }
   },
@@ -55,6 +62,7 @@ export default {
       this.user.token = localStorage.getItem('userInfo');
     }
   },
+
 };
 </script>
 

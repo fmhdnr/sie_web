@@ -6,15 +6,15 @@
             <i class="el-icon-house"></i>
             <span slot="title">Home</span>
           </el-menu-item>
-          <el-menu-item index="/club/" class="menu1">
+          <el-menu-item index="/club" class="menu1">
             <i class="el-icon-school"></i>
             <span slot="title">Clubs</span>
           </el-menu-item>
-          <el-menu-item index="/shop/" class="menu2">
+          <el-menu-item index="/shop" class="menu2">
             <i class="el-icon-shopping-cart-1"></i>
             <span slot="title">Shop</span>
           </el-menu-item>
-          <el-menu-item index="/tutor/" class="menu3">
+          <el-menu-item index="/tutor" class="menu3">
             <i class="el-icon-user"></i>
             <span slot="title">Tutor</span>
           </el-menu-item>
@@ -71,7 +71,7 @@ export default {
     if (localStorage.getItem('userInfo')) {
       getUserInfo(jwtDecode(localStorage.getItem('userInfo')).sub).then(res=>{
         console.log(res.data)
-        this.user.name = res.data.data
+        this.user.name = res.data.data.name
 
       })
     }
@@ -114,7 +114,7 @@ export default {
   line-height: 60px;
   margin: 0;
   border-bottom: 2px solid transparent;
-  color: #909399;
+  color: #206BC4;
 }
 .btn1{
   margin: auto;
@@ -130,10 +130,10 @@ export default {
 }
 
 .el-dropdown-link{
-  color: cornflowerblue;
+  color: #206BC4;
   cursor: pointer; /* 鼠标放上去是手的形状 */
   float: right; /* 浮动在右边 */
   margin-right: 10px;
-  margin-top: -6px;
+  margin-top: -9px;
 }
 </style>

@@ -1,6 +1,5 @@
 import axios from "axios";
 import router from "@/router";
-import {Message} from "element-ui";
 
 const request = axios.create({
     baseURL: 'http://localhost:8080',

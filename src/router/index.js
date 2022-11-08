@@ -10,6 +10,7 @@ import ResetPassword from "@/views/ResetPassword/ResetPassword";
 import Club from "@/views/club/Club";
 import Shop from "@/views/shop/Shop";
 import Tutor from "@/views/tutor/Tutor";
+import ClubDetail from "@/views/club/ClubDetail"
 
 // 创建并暴露一个路由器
 const router = new VueRouter({
@@ -61,6 +62,14 @@ const router = new VueRouter({
                     path:'/tutor',
                     component:Tutor,
                     meta: {
+                        authRequired: true
+                    }
+                },
+                {
+                    name:'Club-Detail',
+                    path:'/clubDetail',
+                    component:ClubDetail,
+                    meta:{
                         authRequired: true
                     }
                 },
