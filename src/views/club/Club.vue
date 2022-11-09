@@ -18,7 +18,7 @@
     <el-row class="card-row">
       <el-col :span="8" class="card-col" v-for="item in clubData" :key="item.id">
         <el-card class="card-club" shadow="hover">
-          <img src="item.imageUrl" class="image" style="width: 250px;height: 150px">
+          <el-image :src="getImage(item.imageUrl)" class="image" style="width: 250px;height: 150px"></el-image>
           <el-divider></el-divider>
           <el-descriptions :title="item.name" :colon="false">
             <template slot="title">
@@ -138,8 +138,11 @@ export default {
     this.searchByPage(this.currentPage, this.pageSize)
   },
   methods: {
-    createClub(formClub) {
+    getImage(url){
+      return 'http://localhost:8080/common/download?name='+url;
+    },
 
+    createClub(formClub) {
       this.$refs[formClub].validate((valid) => {
         if (document.getElementsByName('image')[0].files.length !== 0) {
           let image = new FormData()
