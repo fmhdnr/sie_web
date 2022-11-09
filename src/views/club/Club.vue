@@ -71,7 +71,7 @@
               class="el-textarea"></el-input>
         </el-form-item>
         <el-divider class="club-divider"></el-divider>
-        <el-form-item label="imageUrl" label-width="150px" prop="imageUrl" enctype="multipart/form-data">
+        <el-form-item label="Avatar" label-width="150px" prop="imageUrl" enctype="multipart/form-data">
           <el-input
               type="file"
               v-model="clubForm.imageUrl"

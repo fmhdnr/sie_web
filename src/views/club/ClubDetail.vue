@@ -264,6 +264,9 @@ export default {
                     message: res.data.msg,
                     type: "success",
                   });
+                  _this.searchPost()
+                  _this.postForm.title=''
+                  _this.postForm.content=''
                 } else {  // 当响应的编码不为 0 时，说明登录失败
                   // 显示后端响应的失败信息
                   this.$message({
