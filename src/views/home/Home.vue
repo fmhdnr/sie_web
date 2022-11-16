@@ -61,12 +61,17 @@
                 <!--          <el-image :src="getImage(item.imageUrl)"  style="width: 250px;height: 150px"  alt="图片"></el-image>-->
                                 <img :src="item.imageUrl" :ref="item.id" class="image" style="width: 200px;height: 80px"  alt="">
                 <el-divider></el-divider>
-                <el-descriptions :title="item.name" :colon="false">
+                <el-descriptions :title="item.name" :colon="false" column="1">
                   <template slot="title">
                     <router-link :to="{path:'/clubDetail',query:{id:item.id,name:item.name}}" style="color: black;text-decoration: none;">{{ item.name }}
                     </router-link>
                   </template>
-                  <el-descriptions-item>{{ item.description }}</el-descriptions-item>
+                  <el-descriptions-item style="width: 50px">{{ item.description }}</el-descriptions-item>
+                  <el-descriptions-item>${{ item.price }}
+                    <el-button type="text"  @click="insertIntoCart(item)" style='margin-top: -20px;'>
+                      <i class="el-icon-shopping-cart-2" style="color:royalblue ;font-size: 16px;"></i>
+                    </el-button>
+                  </el-descriptions-item>
                 </el-descriptions>
               </el-card>
               </el-col>
@@ -91,14 +96,15 @@
               <el-col class="card-col" v-for="item in users" :key="item.key">
               <el-card class="card-club" shadow="hover"  >
                 <!--          <el-image :src="getImage(item.imageUrl)"  style="width: 250px;height: 150px"  alt="图片"></el-image>-->
-                                <img :src="item.imageUrl" :ref="item.id" class="image" style="width: 200px;height: 80px"  alt="">
+                <el-avatar style="margin-left: 10px;width: 80px;height: 80px;font-size: larger;display: flex;align-items: center;justify-content: center;" class="el-dropdown-link"> {{ item.name }} </el-avatar>
+<!--                <img :src="item.imageUrl" :ref="item.id" class="image" style="width: 200px;height: 80px"  alt="">-->
                 <el-divider></el-divider>
                 <el-descriptions :title="item.name" :colon="false">
                   <template slot="title">
                     <router-link :to="{path:'/clubDetail',query:{id:item.id,name:item.name}}" style="color: black;text-decoration: none;">{{ item.name }}
                     </router-link>
                   </template>
-                  <el-descriptions-item>{{ item.description }}</el-descriptions-item>
+                  <el-descriptions-item>{{ item.email }}</el-descriptions-item>
                 </el-descriptions>
               </el-card>
               </el-col>
@@ -130,6 +136,7 @@ export default {
         token: "",
       },
       clubsDes:[],
+      itemList:[],
       total:'',
       clubCount:'',
       merchandiseCount:'',
@@ -145,6 +152,12 @@ export default {
     };
   },
   methods: {
+    insertIntoCart(item){
+      this.itemList.push(item);
+      this.$alert("It has been added to the shopping list",'Notice',{
+        confirmButtonText:"Confirm",
+      });
+    },
     handleSelect(item) {
       console.log(item);
     },
