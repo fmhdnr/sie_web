@@ -8,6 +8,7 @@ const request = axios.create({
 
 request.defaults.headers['Content-Type'] = "application/json"
 
+
 request.interceptors.request.use(
     (config) => {
         const token = localStorage.getItem('userInfo')

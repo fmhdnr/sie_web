@@ -42,11 +42,11 @@
                   @click="submitForm('ruleForm')"
                   v-loading="loading"
                   round
-                  plain>Sign in
+                  >Sign in
               </el-button>
-              <el-button @click="resetForm('ruleForm')" round plain type="warning">Reset</el-button>
+              <el-button @click="resetForm('ruleForm')" round  type="warning">Reset</el-button>
               <router-link to="/register">
-                <el-button style="margin-left: 10px" round plain type="info">Sign up</el-button>
+                <el-button style="margin-left: 10px" round  type="info">Sign up</el-button>
               </router-link>
             </div>
           </el-row>
@@ -276,6 +276,7 @@ export default {
 /*.form-wrapper .icon-wrapper i:hover {*/
 /*  background-color: #0e92b3;*/
 /*}*/
+
 
 
 </style>
