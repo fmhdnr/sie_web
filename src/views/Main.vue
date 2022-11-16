@@ -10,13 +10,25 @@
             <i class="el-icon-school"></i>
             <span slot="title">Clubs</span>
           </el-menu-item>
-          <el-menu-item index="/shop" class="menu2">
-            <i class="el-icon-shopping-cart-1"></i>
-            <span slot="title">Shop</span>
-          </el-menu-item>
+
+          <el-submenu class="menu2">
+            <template slot="title">
+              <i class="el-icon-shopping-cart-1"></i>
+              <span>Shop</span>
+            </template>
+              <el-menu-item index="/buy">Buy merchandise</el-menu-item>
+              <el-menu-item index="/sell">Sell merchandise</el-menu-item>
+              <el-menu-item index="/lend">Lend merchandise</el-menu-item>
+              <el-menu-item index="/exchange">Exchange merchandise</el-menu-item>
+          </el-submenu>
+
           <el-menu-item index="/tutor" class="menu3">
             <i class="el-icon-user"></i>
             <span slot="title">Tutor</span>
+          </el-menu-item>
+          <el-menu-item index="/mail" class="menu4">
+            <i class="el-icon-message"></i>
+            <span slot="title">Mail</span>
           </el-menu-item>
 <!--          <el-menu-item >-->
 <!--            <span><el-button  class="btn1" @click="logout" autofocus >Sign out</el-button></span>-->
@@ -71,7 +83,8 @@ export default {
   created() {
     if (localStorage.getItem('userInfo')) {
       getUserInfo(jwtDecode(localStorage.getItem('userInfo')).sub).then(res=>{
-        console.log(res.data)
+        localStorage.setItem("userId",res.data.data.id)
+        localStorage.setItem("name",res.data.data.name)
         this.user.name = res.data.data.name
 
       })
@@ -109,6 +122,11 @@ export default {
   position: absolute;
   left: 655px;
 }
+.menu4{
+  margin: auto;
+  position: absolute;
+  left: 755px;
+}
 .el-menu-vertical-demo{
 
   height: 60px;
@@ -116,12 +134,6 @@ export default {
   margin: 0;
   border-bottom: 2px solid transparent;
   color: #206BC4;
-}
-.btn1{
-  margin: auto;
-  position: absolute;
-  left: 3150%;
-  top:10px
 }
 .dropdown{
   float: right; /* 浮动在右边 */
