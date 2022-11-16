@@ -56,3 +56,10 @@ export function countDelete() {
         method: 'get'
     })
 }
+export function addMail(params) {
+    return request({
+        url: `/send/add`,
+        method: 'post',
+        params
+    })
+}

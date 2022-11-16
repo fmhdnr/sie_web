@@ -60,7 +60,7 @@
       <el-table-column
           prop="sendContent"
           label="Content"
-          min-width="600"
+          min-width="500"
           show-overflow-tooltip>
         <template slot-scope="scope">
           <div slot="reference" class="name-wrapper">
@@ -71,7 +71,7 @@
       <el-table-column
           prop="sendTime"
           label="Time"
-          min-width="100">
+          min-width="150">
         <template slot-scope="scope">
           <div slot="reference" class="name-wrapper">
             <div style="color:darkgray">{{ scope.row.sendTime }}</div>
