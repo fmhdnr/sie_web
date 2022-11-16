@@ -3,7 +3,7 @@
       <el-row style="height: 800px">
         <el-col :span="16"  :offset="4" class="card-col">
           <el-card class="card-club" shadow="never">
-            <img src="../../assets/gr.jpg" class="image" style="width: 850px;height: 500px;margin-top: 15px;margin-bottom: 10px">
+            <img :src="clubData[0].imageUrl" class="image" style="width: 850px;height: 500px;margin-top: 15px;margin-bottom: 10px">
             <el-descriptions  :colon="false" :title=$route.query.name>
               <el-descriptions-item >{{clubData[0].description}}</el-descriptions-item>
             </el-descriptions>
@@ -129,6 +129,27 @@ export default {
 
   },
   methods: {
+    getImage: async  function(url){
+      let imgUrll ='';
+      return  await this.axios({
+        method: 'get',
+        url: "/api/common/download?name="+url ,
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          "token": this.token  // 必须添加的请求头
+        },
+        responseType: "arraybuffer", // 关键 设置 响应类型为二进制流
+      }).then(function (response) {  // 将后台的图片二进制流传华为base64
+        return 'data:image/png;base64,' + btoa(
+            new Uint8Array(response.data).reduce((data, byte) => data + String.fromCharCode(byte), '')
+        );
+      }).then(function (data){
+        imgUrll = data
+        console.log(imgUrll)
+        return imgUrll;
+      });
+    },
+
     joinClub() {
       if (localStorage.getItem('userInfo')) {
         getUserInfo(jwtDecode(localStorage.getItem('userInfo')).sub).then(res=>{
@@ -207,7 +228,17 @@ export default {
           console.log(response.data);
           this.total = response.data.data.total
           // console.log("分页查询的数据：", response.data.data.records)
-          this.clubData = response.data.data.records
+          // this.clubData = response.data.data.records
+          let temp = response.data.data.records
+          console.log(temp);
+          for (let i =0; i<temp.length; i++){
+            this.getImage(temp[i].imageUrl).then(value => {
+              console.log(value);
+              temp[i].imageUrl = value;
+              this.clubData = temp;
+            })
+          }
+          this.clubData = temp;
         } else {
           console.log("查询失败原因：", response.data.message)
         }

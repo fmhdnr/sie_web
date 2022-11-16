@@ -18,18 +18,15 @@
     <el-row class="card-row">
       <el-col :span="8" class="card-col" v-for="item in clubData" :key="item.id">
         <el-card class="card-club" shadow="hover">
-          <img src="item.imageUrl" class="image" style="width: 250px;height: 150px">
+<!--          <el-image :src="getImage(item.imageUrl)"  style="width: 250px;height: 150px"  alt="图片"></el-image>-->
+          <img :src="item.imageUrl" :ref="item.id" class="image" style="width: 250px;height: 150px"  alt="">
           <el-divider></el-divider>
           <el-descriptions :title="item.name" :colon="false">
             <template slot="title">
               <router-link :to="{path:'/clubDetail',query:{id:item.id,name:item.name}}"
                            style="color: black;text-decoration: none;">{{ item.name }}
               </router-link>
-              <!--              <el-link href="/clubDetail" target="_blank" style="font-weight: bold">{{ item.name }}</el-link>-->
             </template>
-            <!--            <template slot="extra">-->
-            <!--              <el-button type="primary" size="small">操作</el-button>-->
-            <!--            </template>-->
             <el-descriptions-item>{{ item.description }}</el-descriptions-item>
           </el-descriptions>
         </el-card>
@@ -109,6 +106,7 @@ export default {
         description: '',
         imageUrl: '',
       },
+      imgUrl:'',
       user: {
         schoolId: "",
         studentId: "",
@@ -116,7 +114,7 @@ export default {
       total: 0, //数据库中总数
       pageSize: 8,
       currentPage: 1,
-
+      picture:'',
       rules: {
         name: [
           {required: true, message: "Please input name.", trigger: "blur"},
@@ -138,8 +136,27 @@ export default {
     this.searchByPage(this.currentPage, this.pageSize)
   },
   methods: {
+    getImage: async  function(url){
+      let imgUrll ='';
+      return  await this.axios({
+        method: 'get',
+        url: "/api/common/download?name="+url ,
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          "token": this.token  // 必须添加的请求头
+        },
+        responseType: "arraybuffer", // 关键 设置 响应类型为二进制流
+      }).then(function (response) {  // 将后台的图片二进制流传华为base64
+        return 'data:image/png;base64,' + btoa(
+            new Uint8Array(response.data).reduce((data, byte) => data + String.fromCharCode(byte), '')
+        );
+      }).then(function (data){
+        imgUrll = data
+        console.log(imgUrll)
+        return imgUrll;
+      });
+    },
     createClub(formClub) {
-
       this.$refs[formClub].validate((valid) => {
         if (document.getElementsByName('image')[0].files.length !== 0) {
           let image = new FormData()
@@ -149,7 +166,7 @@ export default {
               "Content-Type": "multipart/form-data"
             }
           }).then((res) => {
-            console.log(res);
+            // console.log(res);
             if (res.data.code === 200) {  // 当响应的编码为 0 时，说明登录成功
               // 显示后端响应的成功信息
               this.$message({
@@ -197,12 +214,12 @@ export default {
                       }
                       // 不管响应成功还是失败，收到后端响应的消息后就不再让登录按钮显示加载动画了
                       _this.loading = false;
-                      console.log(res);
+                      // console.log(res);
                     });
                   })
                 }
               } else {  // 如果账号或密码有一个没填，就直接提示必填，不向后端请求
-                console.log("error submit!!");
+                // console.log("error submit!!");
                 this.loading = false;
                 return false;
               }
@@ -226,12 +243,12 @@ export default {
     //分页
     handleSizeChange: function (size) {
       this.pageSize = size;
-      console.log(this.pageSize); //每页下拉显示数据
+      // console.log(this.pageSize); //每页下拉显示数据
       this.searchByPage(this.currentPage, this.pageSize);
     },
     handleCurrentChange: function (currentPage) {
       this.currentPage = currentPage;
-      console.log(this.currentPage); //点击第几页
+      // console.log(this.currentPage); //点击第几页
       this.searchByPage(this.currentPage, this.pageSize);
 
     },
@@ -241,7 +258,7 @@ export default {
         pageSize: pageSize,
         name: this.input,
       };
-      console.log(param);
+      // console.log(param);
       this.axios({     // axios 向后端发起请求
         url: "/api/club/page",  // 请求地址
         method: "get",             // 请求方法
@@ -251,13 +268,23 @@ export default {
         params: param,
       }).then((response) => { // 当收到后端的响应时执行该括号内的代码，res为响应信息，也就是后端返回的信息
         if (response.data.code === 200) {
-          console.log(response.data);
+          // console.log(response.data);
           this.total = response.data.data.total
-          console.log("分页查询的数据：", response.data.data.records)
-          this.clubData = response.data.data.records
+          // console.log("分页查询的数据：", response.data.data.records)
+          let temp = response.data.data.records
+          console.log(temp);
+          for (let i =0; i<temp.length; i++){
+            this.getImage(temp[i].imageUrl).then(value => {
+              console.log(value);
+              temp[i].imageUrl = value;
+              this.clubData = temp;
+            })
+          }
+          this.clubData = temp;
         } else {
           console.log("查询失败原因：", response.data.message)
         }
+        console.log(this.clubData);
       }).catch((error) => {
         console.log("查询失败的原因：", error)
       })
