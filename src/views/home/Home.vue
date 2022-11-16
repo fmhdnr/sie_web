@@ -21,7 +21,7 @@
                 class="searchClass"
                 v-model="input"
                 :fetch-suggestions="querySearch"
-                placeholder="请输入内容"
+                placeholder="Input content to search."
                 :trigger-on-focus="false">
             </el-autocomplete>
       </el-col>
@@ -60,7 +60,7 @@
           <el-tab-pane :label="'merchandises('+merchandiseCount+')'" v-if="merchandises.length > 0">
             <el-col class="card-col" v-for="item in merchandises" :key="item.id">
               <el-card class="card-club" shadow="hover">
-                <el-image :src="showImage(item.photo)" style="width: 150px;height: 80px" alt="图片"></el-image>
+                <el-image :src="showImage(item.photo)" style="width: 150px;height: 70px" alt="图片"></el-image>
                 <!--                <img :src="showImage(item.photo)" :ref="item.id" class="image" style="width: 200px;height: 80px" alt="">-->
                 <el-divider></el-divider>
                 <el-descriptions :title="item.name" :colon="false" column="1">
@@ -82,7 +82,7 @@
           <el-tab-pane :label="'tutors('+tutorCount+')'" v-if="tutors.length > 0">
             <el-col class="card-col" v-for="item in tutors" :key="item.tid">
               <el-card class="card-club" shadow="hover">
-                <el-image :src="showImage(item.image)" style="width: 250px;height: 150px" alt="图片"></el-image>
+                <el-image :src="showImage(item.image)" style="width: 250px;height: 80px" alt="图片"></el-image>
                 <!--                <img :src="item.image" :ref="item.id" class="image" style="width: 200px;height: 80px" alt="">-->
                 <el-divider></el-divider>
                 <el-descriptions :title="item.tname" :colon="false">
