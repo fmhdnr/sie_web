@@ -1,5 +1,7 @@
 <template>
+
   <div class="body">
+    <el-backtop target=".body"></el-backtop>
     <div>
       <el-card class="box-card">
         <span>
@@ -124,6 +126,7 @@
 
 
 </template>
+
 
 <script>
 import {getUserInfo} from '@/api/login.js'
