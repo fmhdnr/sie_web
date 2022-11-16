@@ -361,4 +361,5 @@ export default {
 /*.card-row .el-row{*/
 /*  margin-bottom:50px;*/
 /*}*/
+
 </style>
