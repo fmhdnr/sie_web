@@ -1,22 +1,22 @@
 <template>
   <div class="body">
     <div>
-    <el-card class="box-card">
+      <el-card class="box-card">
         <span>
           <h2 style="color: #206BC4">Welcome to SIE</h2>
         </span>
         <span>
           <h6 style="color: #616876">Hello {{ user.name }}! Here is {{ user.schoolid }}.</h6>
         </span>
-<!--      <span>-->
-<!--          <h6 style="color: darkgrey">Here is {{ user.schoolid }}.</h6>-->
-<!--        </span>-->
-      <el-row>
+        <!--      <span>-->
+        <!--          <h6 style="color: darkgrey">Here is {{ user.schoolid }}.</h6>-->
+        <!--        </span>-->
+        <el-row>
       <span>
           <el-col :span="5" :offset="5">
 <!--        <el-input placeholder="Search" v-model="input" class="searchClass" >-->
-<!--          <i slot="suffix" class="el-icon-search el-input__icon" style="margin-top: -5px;margin-right: 30px"></i>-->
-<!--        </el-input>-->
+            <!--          <i slot="suffix" class="el-icon-search el-input__icon" style="margin-top: -5px;margin-right: 30px"></i>-->
+            <!--        </el-input>-->
             <el-autocomplete
                 class="searchClass"
                 v-model="input"
@@ -29,41 +29,44 @@
         <el-button class="search-club" @click="searchAll()">Search</el-button>
       </el-col>
         </span>
-      </el-row>
-    </el-card>
-        <el-row class="row2">
-          <el-col :span="5" :offset="3" >
-            <p style="margin-left: 100px;margin-top: -5px;" v-if="input.length>0">Search results for {{input}}</p>
-            <h5 style="font-weight: lighter;margin-top: -10px;color: #616876;height: 10px" v-if="total>0">{{ total }} results</h5>
-          </el-col>
         </el-row>
-        <el-row class="row3">
-          <el-tabs :tab-position=tabPosition >
-            <el-tab-pane :label="'clubs('+clubCount+')'" v-if="clubs.length > 0" >
-              <el-col  v-for="item in clubs" :key="item.id" class="card-col">
-              <el-card class="card-club" shadow="hover" >
-                <img :src="item.imageUrl" :ref="item.id" class="image" style="width: 200px;height: 80px"  alt="">
+      </el-card>
+      <el-row class="row2">
+        <el-col :span="5" :offset="3">
+          <p style="margin-left: 100px;margin-top: -5px;" v-if="input.length>0">Search results for {{ input }}</p>
+          <h5 style="font-weight: lighter;margin-top: -10px;color: #616876;height: 10px" v-if="total>0">{{ total }}
+            results</h5>
+        </el-col>
+      </el-row>
+      <el-row class="row3">
+        <el-tabs :tab-position=tabPosition>
+          <el-tab-pane :label="'clubs('+clubCount+')'" v-if="clubs.length > 0">
+            <el-col v-for="item in clubs" :key="item.id" class="card-col">
+              <el-card class="card-club" shadow="hover">
+                <img :src="item.imageUrl" :ref="item.id" class="image" style="width: 200px;height: 80px" alt="">
                 <el-divider></el-divider>
                 <el-descriptions :title="item.name" :colon="false">
                   <template slot="title">
-                    <router-link :to="{path:'/clubDetail',query:{id:item.id,name:item.name}}" style="color: black;text-decoration: none;">{{ item.name }}
+                    <router-link :to="{path:'/clubDetail',query:{id:item.id,name:item.name}}"
+                                 style="color: black;text-decoration: none;">{{ item.name }}
                     </router-link>
                   </template>
                   <el-descriptions-item>{{ item.description }}</el-descriptions-item>
                 </el-descriptions>
               </el-card>
-              </el-col>
-            </el-tab-pane>
+            </el-col>
+          </el-tab-pane>
 
-            <el-tab-pane :label="'merchandises('+merchandiseCount+')'" v-if="merchandises.length > 0">
-              <el-col class="card-col" v-for="item in merchandises" :key="item.id">
-              <el-card class="card-club" shadow="hover" >
-                <!--          <el-image :src="getImage(item.imageUrl)"  style="width: 250px;height: 150px"  alt="图片"></el-image>-->
-                                <img :src="item.imageUrl" :ref="item.id" class="image" style="width: 200px;height: 80px"  alt="">
+          <el-tab-pane :label="'merchandises('+merchandiseCount+')'" v-if="merchandises.length > 0">
+            <el-col class="card-col" v-for="item in merchandises" :key="item.id">
+              <el-card class="card-club" shadow="hover">
+                <el-image :src="showImage(item.photo)" style="width: 250px;height: 150px" alt="图片"></el-image>
+                <!--                <img :src="showImage(item.photo)" :ref="item.id" class="image" style="width: 200px;height: 80px" alt="">-->
                 <el-divider></el-divider>
                 <el-descriptions :title="item.name" :colon="false" column="1">
                   <template slot="title">
-                    <router-link :to="{path:'/clubDetail',query:{id:item.id,name:item.name}}" style="color: black;text-decoration: none;">{{ item.name }}
+                    <router-link :to="{path:'/clubDetail',query:{id:item.id,name:item.name}}"
+                                 style="color: black;text-decoration: none;">{{ item.name }}
                     </router-link>
                   </template>
                   <el-descriptions-item style="width: 50px">{{ item.description }}</el-descriptions-item>
@@ -74,49 +77,50 @@
                   </el-descriptions-item>
                 </el-descriptions>
               </el-card>
-              </el-col>
-            </el-tab-pane>
-            <el-tab-pane :label="'tutors('+tutorCount+')'" v-if="tutors.length > 0">
-              <el-col class="card-col" v-for="item in tutors" :key="item.tid">
-              <el-card class="card-club" shadow="hover" >
-                <!--          <el-image :src="getImage(item.imageUrl)"  style="width: 250px;height: 150px"  alt="图片"></el-image>-->
-                                <img :src="item.image" :ref="item.id" class="image" style="width: 200px;height: 80px"  alt="">
+            </el-col>
+          </el-tab-pane>
+          <el-tab-pane :label="'tutors('+tutorCount+')'" v-if="tutors.length > 0">
+            <el-col class="card-col" v-for="item in tutors" :key="item.tid">
+              <el-card class="card-club" shadow="hover">
+                <el-image :src="showImage(item.image)" style="width: 250px;height: 150px" alt="图片"></el-image>
+                <!--                <img :src="item.image" :ref="item.id" class="image" style="width: 200px;height: 80px" alt="">-->
                 <el-divider></el-divider>
                 <el-descriptions :title="item.tname" :colon="false">
                   <template slot="title">
-                    <router-link :to="{path:'/clubDetail',query:{id:item.tid,name:item.tname}}" style="color: black;text-decoration: none;">{{ item.tname }}
+                    <router-link :to="{path:'/clubDetail',query:{id:item.tid,name:item.tname}}"
+                                 style="color: black;text-decoration: none;">{{ item.tname }}
                     </router-link>
                   </template>
-                  <el-descriptions-item>{{ item.tcontents}}</el-descriptions-item>
+                  <el-descriptions-item>{{ item.tcontents }}</el-descriptions-item>
                 </el-descriptions>
               </el-card>
-              </el-col>
-            </el-tab-pane>
-            <el-tab-pane :label="'users('+userCount+')'" v-if="users.length > 0">
-              <el-col class="card-col" v-for="item in users" :key="item.key">
-              <el-card class="card-club" shadow="hover"  >
+            </el-col>
+          </el-tab-pane>
+          <el-tab-pane :label="'users('+userCount+')'" v-if="users.length > 0">
+            <el-col class="card-col" v-for="item in users" :key="item.key">
+              <el-card class="card-club" shadow="hover">
                 <!--          <el-image :src="getImage(item.imageUrl)"  style="width: 250px;height: 150px"  alt="图片"></el-image>-->
                 <el-avatar style="margin-left: 10px;width: 80px;height: 80px;font-size: larger;display: flex;align-items: center;justify-content: center;" class="el-dropdown-link"> {{ item.name }} </el-avatar>
 <!--                <img :src="item.imageUrl" :ref="item.id" class="image" style="width: 200px;height: 80px"  alt="">-->
                 <el-divider></el-divider>
                 <el-descriptions :title="item.name" :colon="false">
                   <template slot="title">
-                    <router-link :to="{path:'/clubDetail',query:{id:item.id,name:item.name}}" style="color: black;text-decoration: none;">{{ item.name }}
+                    <router-link :to="{path:'/clubDetail',query:{id:item.id,name:item.name}}"
+                                 style="color: black;text-decoration: none;">{{ item.name }}
                     </router-link>
                   </template>
                   <el-descriptions-item>{{ item.email }}</el-descriptions-item>
                 </el-descriptions>
               </el-card>
-              </el-col>
-            </el-tab-pane>
+            </el-col>
+          </el-tab-pane>
 
-          </el-tabs>
+        </el-tabs>
 
-        </el-row>
+      </el-row>
 
     </div>
   </div>
-
 
 
 </template>
@@ -193,11 +197,11 @@ export default {
         return (restaurant.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
       };
     },
-    getImage: async  function(url){
-      let imgUrll ='';
-      return  await this.axios({
+    getImage: async function (url) {
+      let imgUrll = '';
+      return await this.axios({
         method: 'get',
-        url: "/api/common/download?name="+url ,
+        url: "/api/common/download?name=" + url,
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
           "token": this.token  // 必须添加的请求头
@@ -207,15 +211,18 @@ export default {
         return 'data:image/png;base64,' + btoa(
             new Uint8Array(response.data).reduce((data, byte) => data + String.fromCharCode(byte), '')
         );
-      }).then(function (data){
+      }).then(function (data) {
         imgUrll = data
         console.log(imgUrll)
         return imgUrll;
       });
     },
-    searchAll(){
+    showImage(image) {
+      return `http://localhost:8080/common/download?name=${image}`
+    },
+    searchAll() {
       this.axios({
-        url:"/api/search?name="+this.input,
+        url: "/api/search?name=" + this.input,
         method: "get",             // 请求方法
         headers: {                  // 请求头
           "Content-Type": "application/json",
@@ -230,7 +237,7 @@ export default {
           //club照片
           let temp = response.data.data.clubs
           console.log(temp);
-          for (let i =0; i<temp.length; i++){
+          for (let i = 0; i < temp.length; i++) {
             this.getImage(temp[i].imageUrl).then(value => {
               console.log(value);
               temp[i].imageUrl = value;
@@ -247,12 +254,12 @@ export default {
           this.users = response.data.data.users
           this.total = response.data.data.allCount
           console.log("查询失败原因：", response.data.message)
-          if(this.clubCount === 0 && this.tutorCount === 0 && this.userCount === 0 && this.merchandiseCount ===0){
-              this.$notify({
-                title: 'Remind',
-                message: 'No Results',
-                type: 'warning'
-              });
+          if (this.clubCount === 0 && this.tutorCount === 0 && this.userCount === 0 && this.merchandiseCount === 0) {
+            this.$notify({
+              title: 'Remind',
+              message: 'No Results',
+              type: 'warning'
+            });
 
           }
         }
@@ -268,7 +275,7 @@ export default {
     },
     loadAll() {
       this.axios({
-        url:"/api/club/nameAndDescription",
+        url: "/api/club/nameAndDescription",
         method: "get",             // 请求方法
         headers: {                  // 请求头
           "Content-Type": "application/json",
@@ -287,12 +294,12 @@ export default {
   },
   created() {
     if (localStorage.getItem('userInfo')) {
-      getUserInfo(jwtDecode(localStorage.getItem('userInfo')).sub).then(res=>{
+      getUserInfo(jwtDecode(localStorage.getItem('userInfo')).sub).then(res => {
         this.user.name = res.data.data.name
         this.user.schoolid = res.data.data.schoolId
-        if(this.user.schoolid==1){
+        if (this.user.schoolid == 1) {
           this.user.schoolid = "Northeastern University"
-        }else {
+        } else {
           this.user.schoolid = "The University of Texas at Arlington"
         }
       })
@@ -306,28 +313,27 @@ export default {
     this.loadAll()
 
 
-
-
-
   },
 
 };
 </script>
 <style>
-.labelcolor{
+.labelcolor {
   font-size: 16px;
   height: 50px;
   line-height: 50px;
   display: inline-block;
 }
-.el-tabs__item{
+
+.el-tabs__item {
   height: 50px;
   color: black;
   font-weight: lighter;
   width: 200px;
 
 }
-.el-tabs__nav-scroll{
+
+.el-tabs__nav-scroll {
 
   margin: fill;
 }
@@ -337,6 +343,7 @@ export default {
   font-weight: normal;
   background-color: #E9EFF7;
 }
+
 /*去掉切换时el-tab-pane底部的蓝色下划线*/
 .el-tabs__active-bar {
   background-color: transparent !important;
@@ -348,7 +355,7 @@ export default {
 }
 </style>
 <style scoped>
-.body{
+.body {
   width: 100%;
   height: 100%;
   background-color: #F1F5F9;
@@ -358,16 +365,18 @@ export default {
   background-repeat: no-repeat;
   position: fixed;
 }
+
 .box-card {
   width: 1000px;
   /*height: 150px;*/
   background-color: #DBE7F4;
   position: absolute;
-  top:90px;
+  top: 90px;
   left: 0;
-  right:0;
+  right: 0;
   margin: auto;
 }
+
 .searchClass {
   width: 500px;
   height: 1px;
@@ -382,10 +391,12 @@ export default {
   justify-content: center;
 
 }
-/deep/ .el-input__inner{
+
+/deep/ .el-input__inner {
   width: 450px;
   height: 30px;
 }
+
 .row2 {
   margin-top: 300px;
   height: 24px;
@@ -394,15 +405,18 @@ export default {
   font-size: 20px;
   font-weight: normal;
 }
-.row3{
+
+.row3 {
   margin-top: 60px;
   margin-left: 330px;
 
 }
+
 .card-club {
   width: 300px;
   height: 250px;
 }
+
 .card-col {
   /*margin-top: 30px;*/
   margin-bottom: 30px;
