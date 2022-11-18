@@ -8,8 +8,6 @@ import VueRouter from 'vue-router' // 路由 1
 import router from './router' // 路由 2
 import axios from "axios"
 import VueAxios from 'vue-axios'
-import {getUserInfo} from "@/api/login";
-import jwtDecode from "jwt-decode";
 import locale from 'element-ui/lib/locale/lang/en'
 
 Vue.use(ElementUI, { locale })

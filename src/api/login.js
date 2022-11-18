@@ -1,6 +1,7 @@
 import request from "@/js/request";
 
 export function login(data) {
+    localStorage.removeItem("userInfo")
     return request({
         url: "/user/login",
         method: 'post',
@@ -16,6 +17,7 @@ export function getUserInfo(userId) {
 }
 
 export function forgetPassword(data) {
+    localStorage.removeItem("userInfo")
     return request({
         url: "/user/forgetPassword",
         method: 'put',
