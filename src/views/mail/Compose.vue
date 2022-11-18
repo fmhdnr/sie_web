@@ -9,7 +9,7 @@
         To
       </el-col>
       <el-col :span="19">
-        <el-input v-model="receive" placeholder="Email address"></el-input>
+        <el-input v-model="User.receiveUser" placeholder="Email address"></el-input>
       </el-col>
     </el-row>
     <el-row >
@@ -17,7 +17,7 @@
         Subject
       </el-col>
       <el-col :span="19">
-        <el-input v-model="subject" placeholder="Subject"></el-input>
+        <el-input v-model="User.sendSubject" placeholder="Subject"></el-input>
       </el-col>
     </el-row>
     <div style="height:20px"></div>
@@ -27,14 +27,14 @@
             type="textarea"
             :rows="15"
             placeholder="Enter content"
-            v-model="textarea">
+            v-model="User.sendContent">
         </el-input>
       </el-col>
     </el-row>
     <div style="height:80px"></div>
     <el-row >
-      <el-button type="primary">Send</el-button>
-      <el-button type="info">Save</el-button>
+      <el-button type="primary" @click="send()">Send</el-button>
+      <el-button type="info" @click="save()">Save</el-button>
     </el-row>
     <div style="height:60px"></div>
 
@@ -42,15 +42,73 @@
 </template>
 
 <script>
+import {addMail} from "@/api/mail";
+
 export default {
   data(){
     return{
       mailList:[],
-      subject:'',
-      receive:'',
-      textarea:'',
+      User:{
+        sendState:"",
+        sendUser:"",
+        sendContent:'',
+        sendSubject:'',
+        sendEmail:"",
+        receiveUser:'',
+        receiveName:"",
+      }
     };
   },
+  created(){
+    if(this.$route.query){
+      console.log('you');
+      this.User.receiveUser=this.$route.query.receiveUser;
+      this.User.sendSubject=this.$route.query.sendSubject;
+      this.User.sendContent=this.$route.query.sendContent;
+    }
+  },
+  methods:{
+    send(){
+      this.User.sendState=1;
+      this.User.sendUser=localStorage.getItem("name");
+      this.User.sendEmail=localStorage.getItem("name")+'@163.com';
+      this.User.receiveName=this.User.receiveUser;
+      this.axios({
+        method:'post',
+        url:"http://localhost:8080/send/add",
+        data:this.User,
+        headers:{
+          token:localStorage.getItem("userInfo")
+        }
+      }).then(r=>{
+        if(r.data){
+          this.$alert("Send successfully. ",'Notice',{
+            confirmButtonText:"Confirm",
+          });
+        }
+      });
+    },
+    save(){
+      this.User.sendState=0;
+      this.User.sendUser=localStorage.getItem("name");
+      this.User.sendEmail=localStorage.getItem("name")+'@163.com';
+      this.User.receiveName=this.User.receiveUser;
+      this.axios({
+        method:'post',
+        url:"http://localhost:8080/send/add",
+        data:this.User,
+        headers:{
+          token:localStorage.getItem("userInfo")
+        }
+      }).then(r=>{
+        if(r.data){
+          this.$alert("Save to drafts.",'Notice',{
+            confirmButtonText:"Confirm",
+          });
+        }
+      });
+    },
+  }
 }
 </script>
 

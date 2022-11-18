@@ -27,6 +27,7 @@ export default {
   created(){
     if(this.$route.query){
       this.send=this.$route.query;
+      console.log(this.send);
     }
   }
 
