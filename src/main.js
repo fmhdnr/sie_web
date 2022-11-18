@@ -46,3 +46,20 @@ axios.interceptors.request.use(
 //         this.user.schoolid = "The University of Texas at Arlington"
 //     }
 // })
+axios.interceptors.response.use(
+    (response) => {
+        if (response.data.code === 401) {// 返回登录页面
+            localStorage.removeItem('userInfo')
+            router.push({name: 'Login'})
+        } else {
+            return response
+        }
+    },
+    (response) => {
+        // const res = response.data
+        // const msg = res.msg
+        // Message.error(msg)
+        if (response.data.code === 401) router.push({name: 'Login'})
+        return Promise.reject(response)
+    }
+)

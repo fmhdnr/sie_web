@@ -42,7 +42,7 @@ request.interceptors.request.use(
 
 request.interceptors.response.use(
     (response) => {
-        if (response.data.code === 401 && response.data.msg === 'user authentication failed') {// 返回登录页面
+        if (response.data.code === 401) {// 返回登录页面
             localStorage.removeItem('userInfo')
             router.push({name: 'Login'})
         } else {
@@ -53,7 +53,7 @@ request.interceptors.response.use(
         // const res = response.data
         // const msg = res.msg
         // Message.error(msg)
-        if (response.data.code === 401 && response.data.msg === 'user authentication failed') router.push({name: 'Login'})
+        if (response.data.code === 401) router.push({name: 'Login'})
         return Promise.reject(response)
     }
 )
